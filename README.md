@@ -18,3 +18,5 @@ python manage.py createsuperuser
 
 go to examples/django_app
 python manage.py runserver 0.0.0.0:8000
+
+https://drive.google.com/file/d/1WvaGH481KPkzh1ocRd1rPVDD3MP8J57Y/view?usp=sharing
