@@ -15,4 +15,6 @@ python manage.py createsuperuser
 
 
 #Command to Run Server
+
+go to examples/django_app
 python manage.py runserver 0.0.0.0:8000
