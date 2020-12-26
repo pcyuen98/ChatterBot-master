@@ -62,3 +62,9 @@ https://help.dreamhost.com/hc/en-us/articles/360001435926-Installing-OpenSSL-loc
 install python and ./configure --with-openssl=/home/username/openssl
 at last, run python3 -m ssl and nothing outputs, it's ok.
 
+# Other Bot Samples
+https://www.elbot.com/
+
+https://www.pandorabots.com/mitsuku/
+
+
