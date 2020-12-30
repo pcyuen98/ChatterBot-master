@@ -11,6 +11,10 @@ python -m spacy link en_core_web_sm en
 
 python manage.py migrate
 
+pip3 install profanityFilter
+
+pip3 install profanity_filter
+
 python manage.py createsuperuser
 
 
@@ -67,4 +71,11 @@ https://www.elbot.com/
 
 https://www.pandorabots.com/mitsuku/
 
+# Command to start centos in screen
 
+Below are the most basic steps for getting started with screen: This is to avoid server closed when quit the terminal or putty.
+
+On the command prompt, type screen.
+Run the desired program.
+Use the key sequence Ctrl-a + Ctrl-d to detach from the screen session.
+Reattach to the screen session by typing screen -r.
