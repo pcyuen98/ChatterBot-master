@@ -4,7 +4,8 @@ from django.views.generic import View
 from django.http import JsonResponse
 from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
-
+from profanity_filter import ProfanityFilter
+import json
 
 class ChatterBotAppView(TemplateView):
     template_name = 'app.html'
@@ -23,18 +24,38 @@ class ChatterBotApiView(View):
 
         * The JSON data should contain a 'text' attribute.
         """
+        print ("---post 1")
         input_data = json.loads(request.body.decode('utf-8'))
+        print ("---post 1 input_data==", input_data)
+        
+        pf = ProfanityFilter()
+        x = json.dumps(input_data)
+        y = json.loads(x)
+        text =  y["text"]
+        print ("---post 1 text==", text)
+        isProfane = pf.is_profane(text)
 
+        if (isProfane):
+            filtered = pf.censor(text)
+            return JsonResponse({
+                'text': [
+                    'Profane Word detected and filtered. Do you really want to teach the bot this word? Filtered word =' + filtered
+                ]
+            }, status=200)
+        
         if 'text' not in input_data:
             return JsonResponse({
                 'text': [
                     'The attribute "text" is required.'
                 ]
             }, status=400)
-
+       
+        
+       
+         
         response = self.chatterbot.get_response(input_data)
-
-        response_data = response.serialize()
+       
+        response_data = response.serialize()      
 
         return JsonResponse(response_data, status=200)
 
