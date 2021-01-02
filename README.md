@@ -5,6 +5,8 @@ pip install chatterbot
 
 pip install spacy==2.1.0
 
+pip install langdetect
+
 python -m spacy download en_core_web_sm
 
 python -m spacy link en_core_web_sm en
