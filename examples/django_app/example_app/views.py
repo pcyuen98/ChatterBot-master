@@ -59,7 +59,7 @@ class ChatterBotApiView(View):
             filtered = pf.censor(text)
             return JsonResponse({
                 'text': [
-                    'Bot only able to understand English, could you re-type? =' + text
+                    'Bot only able to understand simple English, could you re-type, if possible full sentence? =' + text
                 ]
             }, status=200)
             
