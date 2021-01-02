@@ -69,10 +69,7 @@ class ChatterBotApiView(View):
                     'The attribute "text" is required.'
                 ]
             }, status=400)
-       
-        
-       
-         
+
         response = self.chatterbot.get_response(input_data)
        
         response_data = response.serialize()      
