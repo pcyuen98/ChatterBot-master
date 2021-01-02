@@ -6,6 +6,7 @@ from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
 from profanity_filter import ProfanityFilter
 import json
+from langdetect import detect
 
 class ChatterBotAppView(TemplateView):
     template_name = 'app.html'
@@ -28,6 +29,8 @@ class ChatterBotApiView(View):
         input_data = json.loads(request.body.decode('utf-8'))
         print ("---post 1 input_data==", input_data)
         
+    
+        
         pf = ProfanityFilter()
         x = json.dumps(input_data)
         y = json.loads(x)
@@ -43,6 +46,23 @@ class ChatterBotApiView(View):
                 ]
             }, status=200)
         
+        print(detect(text))
+        langDetected = detect(text)
+
+        supportedLang = ['nl', 'sl', 'en']
+
+        isSupported = any(langDetected in s for s in supportedLang)
+        
+        print("spelling ==" , langDetected , isSupported)
+        
+        if (isSupported == False):
+            filtered = pf.censor(text)
+            return JsonResponse({
+                'text': [
+                    'Bot only able to understand English, could you re-type? =' + text
+                ]
+            }, status=200)
+            
         if 'text' not in input_data:
             return JsonResponse({
                 'text': [
