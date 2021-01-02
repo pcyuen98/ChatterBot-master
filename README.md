@@ -17,6 +17,8 @@ pip3 install profanityFilter
 
 pip3 install profanity_filter
 
+pip3 install langdetect
+
 python manage.py createsuperuser
 
 
