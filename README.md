@@ -22,6 +22,7 @@ pip3 install langdetect
 python manage.py createsuperuser
 
 
+
 # Command to Run Server
 
 go to examples/django_app
