@@ -5,7 +5,6 @@ pip install chatterbot
 
 pip install spacy==2.1.0
 
-pip install langdetect
 
 python -m spacy download en_core_web_sm
 
@@ -13,11 +12,9 @@ python -m spacy link en_core_web_sm en
 
 python manage.py migrate
 
-pip3 install profanityFilter
+pip install profanity_filter
 
-pip3 install profanity_filter
-
-pip3 install langdetect
+pip install langdetect
 
 python manage.py createsuperuser
 
