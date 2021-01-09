@@ -1,26 +1,35 @@
 
 # Installation Step
 
+Step 1 - Install the module
+===========================
+
 pip install chatterbot
 
 pip install spacy==2.1.0
-
 
 python -m spacy download en_core_web_sm
 
 python -m spacy link en_core_web_sm en
 
-python manage.py migrate
-
 pip install profanity_filter
 
 pip install langdetect
 
+
+Step 2 - Command to create user
+================================
+
+# Command to create user
+
+go to examples/django_app
+
+python manage.py migrate
+
 python manage.py createsuperuser
 
-
-
-# Command to Run Server
+Step 3 -  Test and Run the server
+================================
 
 go to examples/django_app
 
