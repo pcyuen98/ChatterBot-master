@@ -1,8 +1,11 @@
 
 # Installation Step
 
-Step 1 - Install the module
+Step 1 - Install the module 
 ===========================
+
+Note: Please run as administor right using command prompt
+=========================================================
 
 pip install chatterbot==1.0.4
 
