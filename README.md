@@ -4,9 +4,9 @@
 Step 1 - Install the module
 ===========================
 
-pip install chatterbot
+pip install chatterbot==1.0.4
 
-pip install spacy==2.1.0
+pip install spacy
 
 python -m spacy download en_core_web_sm
 
