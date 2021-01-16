@@ -29,8 +29,6 @@ class ChatterBotApiView(View):
         input_data = json.loads(request.body.decode('utf-8'))
         print ("---post 1 input_data==", input_data)
         
-    
-        
         pf = ProfanityFilter()
         x = json.dumps(input_data)
         y = json.loads(x)
@@ -38,6 +36,12 @@ class ChatterBotApiView(View):
         print ("---post 1 text==", text)
         isProfane = pf.is_profane(text)
 
+        if not text.find("covid") == -1:
+            return JsonResponse({
+                'text': [
+                    'Total Cases 3211 (Fri Jan 15 00:00:00 MYT 2021) '
+                ]
+            }, status=200)
         if (isProfane):
             filtered = pf.censor(text)
             return JsonResponse({
