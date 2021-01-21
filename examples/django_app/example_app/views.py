@@ -50,14 +50,14 @@ class ChatterBotApiView(View):
                 ]
             }, status=200)
             
-        if not text.find("where") == -1:
+        if not text.find("Where") == -1:
             return JsonResponse({
                 'text': [
                     'Somewhere in the universe. What about you?'
                 ]
             }, status=200)  
               
-        if not text.find("age") == -1:
+        if not text.find("old") == -1:
             return JsonResponse({
                 'text': [
                     'I am less than 3 months old'
