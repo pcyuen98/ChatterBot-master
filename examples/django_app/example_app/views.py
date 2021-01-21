@@ -36,28 +36,28 @@ class ChatterBotApiView(View):
         print ("---post 1 text==", text)
         isProfane = pf.is_profane(text)
 
-        if not text.find("covid") == -1:
+        if not text.lower().find("covid") == -1:
             return JsonResponse({
                 'text': [
                     'Total Cases 3170 (Thu Jan 21 00:00:00 MYT 2021) '
                 ]
             }, status=200)
             
-        if not text.find("name") == -1:
+        if not text.lower().find("name") == -1:
             return JsonResponse({
                 'text': [
                     'My name is bayibot, what about you?'
                 ]
             }, status=200)
             
-        if not text.find("Where") == -1:
+        if not text.lower().find("where") == -1:
             return JsonResponse({
                 'text': [
                     'Somewhere in the universe. What about you?'
                 ]
             }, status=200)  
               
-        if not text.find("old") == -1:
+        if not text.lower().find("old") == -1:
             return JsonResponse({
                 'text': [
                     'I am less than 3 months old'
