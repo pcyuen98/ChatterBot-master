@@ -39,7 +39,7 @@ class ChatterBotApiView(View):
         if not text.find("covid") == -1:
             return JsonResponse({
                 'text': [
-                    'Total Cases 3211 (Fri Jan 15 00:00:00 MYT 2021) '
+                    'Total Cases 3170 (Thu Jan 21 00:00:00 MYT 2021) '
                 ]
             }, status=200)
         if (isProfane):
