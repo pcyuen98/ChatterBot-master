@@ -49,7 +49,20 @@ class ChatterBotApiView(View):
                     'My name is bayibot, what about you?'
                 ]
             }, status=200)
-                        
+            
+        if not text.find("where") == -1:
+            return JsonResponse({
+                'text': [
+                    'Somewhere in the universe. What about you?'
+                ]
+            }, status=200)  
+              
+        if not text.find("age") == -1:
+            return JsonResponse({
+                'text': [
+                    'I am less than 3 months old'
+                ]
+            }, status=200)                                
         if (isProfane):
             filtered = pf.censor(text)
             return JsonResponse({
