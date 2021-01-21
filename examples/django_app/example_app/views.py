@@ -42,6 +42,14 @@ class ChatterBotApiView(View):
                     'Total Cases 3170 (Thu Jan 21 00:00:00 MYT 2021) '
                 ]
             }, status=200)
+            
+        if not text.find("name") == -1:
+            return JsonResponse({
+                'text': [
+                    'My name is bayibot, what about you?'
+                ]
+            }, status=200)
+                        
         if (isProfane):
             filtered = pf.censor(text)
             return JsonResponse({
