@@ -1,12 +1,13 @@
- {% load static %}
+{% load static %}
 <!doctype html>
 <html>
 
 <head>
-<title>Django ChatterBot Example</title>
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
-<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
+	<title>Django ChatterBot Example</title>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}" />
 </head>
+
 <body>
 
 	{% include 'nav.html' %}
@@ -14,10 +15,8 @@
 	<div class="container">
 
 		<div class="jumbotron mt-1">
-			<h1 class="jumbotron-heading text-xs-center">MediBot Wishes you
-				Happy 2021 !</h1>
-			<p class="lead text-xs-center">Merry Christmas and Happy New
-				Year! Stay Safe in 2021. Click Chat Bot and Teach it about Covid 19
+			<h1 class="jumbotron-heading text-xs-center">Chat anything here</h1>
+			<p class="lead text-xs-center">Stay Safe in 2021. Click Chat Bot and Teach it about Covid 19
 				Treatment, Social Innovation and Social Awareness.</p>
 
 			<p class="lead text-xs-center">
@@ -25,21 +24,22 @@
 				will share to others
 			</p>
 
-			<p class="lead text-xs-center">
-				<b>Challenge the BOT with "Simple English" Profane words, see
-					what happen. It's still a baby BOT anyway.. More AI Features coming soon! 
-			</p>
 			<hr class="my-2">
 
 			<div class="row">
 				<div class="col-xs-6 offset-xs-3">
+
 					<ul class="list-group chat-log js-chat-log">
 					</ul>
 
+					<p id="text" style="display:none">
+						Need help? Please click Ministry of Health Social works here <a 
+							href="https://web.facebook.com/373560576236/posts/10157658547771237/?sfnsn=mo&_rdc=1&_rdr" target="_blank">Link</a>
+
+					</p>
 					<div class="input-group input-group-lg mt-1">
-						<input type="text" class="form-control js-text"
-							placeholder="Type something to begin..." /> <span
-							class="input-group-btn">
+						<input type="text" class="form-control js-text" placeholder="Type something to begin..." />
+						<span class="input-group-btn">
 							<button class="btn btn-primary js-say">Submit</button>
 						</span>
 					</div>
@@ -48,10 +48,8 @@
 			</div>
 
 			<p class="lead text-xs-center">
-				<a class="lead text-xs-center"
-					href="https://pcyuen99.wixsite.com/wnixtutor"> <img
-					src="{% static 'img/ic_launcher.png' %}" width="400" height="400"
-					alt="ChatterBot">
+				<a class="lead text-xs-center" href="https://pcyuen99.wixsite.com/wnixtutor"> <img
+						src="{% static 'img/ic_launcher.png' %}" width="400" height="400" alt="ChatterBot">
 				</a>
 			</p>
 			<p class="lead text-xs-center">
@@ -60,14 +58,11 @@
 
 			<div>
 				<p class="lead text-xs-center">
-					<a class="lead text-xs-center"
-						href="https://wa.link/omqxdf"><img
-						src="{% static 'img/complaint.jpg' %}" width="200" height="200"
-						
-						alt="ChatterBot">
+					<a class="lead text-xs-center" href="https://wa.link/omqxdf"><img
+							src="{% static 'img/complaint.jpg' %}" width="200" height="200" alt="ChatterBot">
 					</a>
 				</p>
-			
+
 			</div>
 		</div>
 
@@ -86,7 +81,7 @@
 		}
 
 		$.ajaxSetup({
-			beforeSend : function(xhr, settings) {
+			beforeSend: function (xhr, settings) {
 				if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
 					xhr.setRequestHeader("X-CSRFToken", csrftoken);
 				}
@@ -96,6 +91,7 @@
 		var $chatlog = $('.js-chat-log');
 		var $input = $('.js-text');
 		var $sayButton = $('.js-say');
+		var $kkm = $('.js-kkm');
 
 		function createRow(text) {
 			var $row = $('<li class="list-group-item"></li>');
@@ -106,22 +102,32 @@
 
 		function submitInput() {
 			var inputData = {
-				'text' : $input.val()
+				'text': $input.val()
 			}
 
 			// Display the user's input on the web page
 			createRow(inputData.text);
 
 			var $submit = $.ajax({
-				type : 'POST',
-				url : chatterbotUrl,
-				data : JSON.stringify(inputData),
-				contentType : 'application/json'
+				type: 'POST',
+				url: chatterbotUrl,
+				data: JSON.stringify(inputData),
+				contentType: 'application/json'
 			});
 
-			$submit.done(function(statement) {
+			$submit.done(function (statement) {
 				createRow(statement.text);
+				var returnText = String(statement.text);
+				var isCovid = returnText.includes("Total Cases")
+				console.log('isCovid-' + isCovid + "==" + returnText);
+				if (isCovid == true) {
+					text.style.display = "block";
+				}
+				else {
+					text.style.display = "none";
+				}
 
+				
 				// Clear the input field
 				$input.val('');
 
@@ -129,16 +135,16 @@
 				$chatlog[0].scrollTop = $chatlog[0].scrollHeight;
 			});
 
-			$submit.fail(function() {
+			$submit.fail(function () {
 				// TODO: Handle errors
 			});
 		}
 
-		$sayButton.click(function() {
+		$sayButton.click(function () {
 			submitInput();
 		});
 
-		$input.keydown(function(event) {
+		$input.keydown(function (event) {
 			// Submit the input when the enter button is pressed
 			if (event.keyCode == 13) {
 				submitInput();
@@ -146,4 +152,5 @@
 		});
 	</script>
 </body>
+
 </html>
