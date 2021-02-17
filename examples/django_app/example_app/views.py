@@ -25,9 +25,8 @@ class ChatterBotApiView(View):
 
         * The JSON data should contain a 'text' attribute.
         """
-        print ("---post 1")
         input_data = json.loads(request.body.decode('utf-8'))
-        print ("---post 1 input_data==", input_data)
+        print ("input_data==", input_data)
         
         pf = ProfanityFilter()
         x = json.dumps(input_data)
