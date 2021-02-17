@@ -1,4 +1,3 @@
-import json
 from django.views.generic.base import TemplateView
 from django.views.generic import View
 from django.http import JsonResponse
@@ -7,6 +6,8 @@ from chatterbot.ext.django_chatterbot import settings
 from profanity_filter import ProfanityFilter
 import json
 from langdetect import detect
+from example_app.views_ifelse_basic import ViewsIfElseBasic
+
 
 class ChatterBotAppView(TemplateView):
     template_name = 'app.html'
@@ -26,28 +27,14 @@ class ChatterBotApiView(View):
         * The JSON data should contain a 'text' attribute.
         """
         input_data = json.loads(request.body.decode('utf-8'))
-        print ("input_data ==>", input_data)
-        
+        print ("input_data ==>", input_data)        
     
         x = json.dumps(input_data)
         y = json.loads(x)
         text =  y["text"]
         print ("input_data in text ==>", text)
-
-        if not text.lower().find("covid") == -1:
-            return JsonResponse({
-                'text': [
-                    'Total Cases 5,725 (Fri Jan 29 00:00:00 MYT 2021) ' 
-               
-                ]
-            }, status=200)
-            
-        if not text.lower().find("name") == -1:
-            return JsonResponse({
-                'text': [
-                    'My name is bayibot, what about you?'
-                ]
-            }, status=200)
+        
+        return ViewsIfElseBasic.answerBasicQuestions(request)
             
         if not text.lower().find("where") == -1:
             return JsonResponse({
@@ -63,6 +50,7 @@ class ChatterBotApiView(View):
                 ]
             }, status=200)  
         
+        # move this to views_check_profone.py
         pf = ProfanityFilter()
         isProfane = pf.is_profane(text)                                  
         if (isProfane):
@@ -73,6 +61,7 @@ class ChatterBotApiView(View):
                 ]
             }, status=200)
         
+        # move this to views_check_lang.py
         langDetected = detect(text)
 
         supportedLang = ['nl', 'sl', 'en']
