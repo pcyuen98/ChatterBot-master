@@ -28,12 +28,11 @@ class ChatterBotApiView(View):
         input_data = json.loads(request.body.decode('utf-8'))
         print ("input_data ==>", input_data)
         
-        pf = ProfanityFilter()
+    
         x = json.dumps(input_data)
         y = json.loads(x)
         text =  y["text"]
         print ("input_data in text ==>", text)
-        isProfane = pf.is_profane(text)
 
         if not text.lower().find("covid") == -1:
             return JsonResponse({
@@ -62,7 +61,10 @@ class ChatterBotApiView(View):
                 'text': [
                     'I am less than 3 months old'
                 ]
-            }, status=200)                                
+            }, status=200)  
+        
+        pf = ProfanityFilter()
+        isProfane = pf.is_profane(text)                                  
         if (isProfane):
             filtered = pf.censor(text)
             return JsonResponse({
@@ -71,14 +73,13 @@ class ChatterBotApiView(View):
                 ]
             }, status=200)
         
-        print(detect(text))
         langDetected = detect(text)
 
         supportedLang = ['nl', 'sl', 'en']
 
         isSupported = any(langDetected in s for s in supportedLang)
         
-        print("spelling ==" , langDetected , isSupported)
+        print("lang detected and supported? ==" , langDetected , isSupported)
         
         if (isSupported == False):
             filtered = pf.censor(text)
