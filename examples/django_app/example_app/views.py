@@ -26,13 +26,13 @@ class ChatterBotApiView(View):
         * The JSON data should contain a 'text' attribute.
         """
         input_data = json.loads(request.body.decode('utf-8'))
-        print ("input_data==", input_data)
+        print ("input_data ==>", input_data)
         
         pf = ProfanityFilter()
         x = json.dumps(input_data)
         y = json.loads(x)
         text =  y["text"]
-        print ("---post 1 text==", text)
+        print ("input_data in text ==>", text)
         isProfane = pf.is_profane(text)
 
         if not text.lower().find("covid") == -1:
