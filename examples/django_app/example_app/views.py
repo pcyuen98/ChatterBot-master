@@ -34,8 +34,11 @@ class ChatterBotApiView(View):
         text =  y["text"]
         print ("input_data in text ==>", text)
         
-        return ViewsIfElseBasic.answerBasicQuestions(request)
-            
+        answerStr = ViewsIfElseBasic.answerBasicQuestions(request)
+        print ("answerBasicQuestions ==>", answerStr)
+        if answerStr != None:
+            return answerStr
+             
         if not text.lower().find("where") == -1:
             return JsonResponse({
                 'text': [
@@ -50,7 +53,7 @@ class ChatterBotApiView(View):
                 ]
             }, status=200)  
         
-        # move this to views_check_profone.py
+        # << --- START - move this to views_check_profone.py  --->>
         pf = ProfanityFilter()
         isProfane = pf.is_profane(text)                                  
         if (isProfane):
@@ -60,8 +63,9 @@ class ChatterBotApiView(View):
                     'Profane Word detected and filtered. Do you really want to teach the bot this word? Filtered word =' + filtered
                 ]
             }, status=200)
+        # << --- END - move this to views_check_profone.py  --->>
         
-        # move this to views_check_lang.py
+        # << --- START - move this to views_check_lang.py  --->>
         langDetected = detect(text)
 
         supportedLang = ['nl', 'sl', 'en']
@@ -85,6 +89,8 @@ class ChatterBotApiView(View):
                 ]
             }, status=400)
 
+        # << --- END - move this to views_check_lang.py  --->>
+        
         response = self.chatterbot.get_response(input_data)
        
         response_data = response.serialize()      
