@@ -37,21 +37,7 @@ class ChatterBotApiView(View):
         answerStr = ViewsIfElseBasic.answerBasicQuestions(request)
         print ("answerBasicQuestions ==>", answerStr)
         if answerStr != None:
-            return answerStr
-             
-        if not text.lower().find("where") == -1:
-            return JsonResponse({
-                'text': [
-                    'Somewhere in the universe. What about you?'
-                ]
-            }, status=200)  
-              
-        if not text.lower().find("old") == -1:
-            return JsonResponse({
-                'text': [
-                    'I am less than 3 months old'
-                ]
-            }, status=200)  
+            return answerStr   
         
         # << --- START - move this to views_check_profone.py  --->>
         pf = ProfanityFilter()

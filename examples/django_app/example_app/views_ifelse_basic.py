@@ -27,4 +27,18 @@ class ViewsIfElseBasic:
                 'text': [
                     'My name is bayibot., what about you?'
                 ]
-            }, status=200)     
+            }, status=200)
+            
+        if not text.lower().find("where") == -1:
+            return JsonResponse({
+                'text': [
+                    'Somewhere in the universe. What about you?'
+                ]
+            }, status=200)  
+              
+        if not text.lower().find("old") == -1:
+            return JsonResponse({
+                'text': [
+                    'I am less than 3 months old'
+                ]
+            }, status=200)  
