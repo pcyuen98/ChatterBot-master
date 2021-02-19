@@ -35,7 +35,7 @@ class ChatterBotApiView(View):
         print ("input_data in text ==>", text)
         
         answerStr = ViewsIfElseBasic.answerBasicQuestions(request)
-        print ("answerBasicQuestions  ==>", answerStr)
+        print ("answerBasicQuestions ==>", answerStr)
         if answerStr != None:
             return answerStr   
         
