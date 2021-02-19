@@ -6,7 +6,9 @@ from chatterbot.ext.django_chatterbot import settings
 from profanity_filter import ProfanityFilter
 import json
 from langdetect import detect
-from example_app.views_ifelse_basic import ViewsIfElseBasic
+
+from django_app.example_app.views_check_profone import ViewCheckProfane
+from django_app.example_app.views_ifelse_basic import ViewsIfElseBasic
 
 
 class ChatterBotAppView(TemplateView):
@@ -35,6 +37,8 @@ class ChatterBotApiView(View):
         print ("input_data in text ==>", text)
         
         answerStr = ViewsIfElseBasic.answerBasicQuestions(request)
+        answerStr = ViewCheckProfane.checkProfane(request)
+        
         print ("answerBasicQuestions ==>", answerStr)
         if answerStr != None:
             return answerStr   
