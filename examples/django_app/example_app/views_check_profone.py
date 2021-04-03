@@ -1,4 +1,6 @@
 import json
+from profanity_filter.profanity_filter import ProfanityFilter
+from django.http.response import JsonResponse
 
 class ViewCheckProfane:
     
@@ -12,3 +14,15 @@ class ViewCheckProfane:
         y = json.loads(x)
         text =  y["text"]
         print ("input_data in text ==>", text)
+                
+        # << --- START - move this to views_check_profone.py  --->>
+        pf = ProfanityFilter()
+        isProfane = pf.is_profane(text)                                  
+        if (isProfane):
+            filtered = pf.censor(text)
+            return JsonResponse({
+                'text': [
+                    'Profane Word detected and filtered. Do you really want to teach the bot this word? Filtered word =' + filtered
+                ]
+            }, status=200)
+        # << --- END - move this to views_check_profone.py  --->>

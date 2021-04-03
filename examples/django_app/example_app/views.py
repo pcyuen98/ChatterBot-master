@@ -5,9 +5,10 @@ from chatterbot import ChatBot
 from chatterbot.ext.django_chatterbot import settings
 from profanity_filter import ProfanityFilter
 import json
-from langdetect import detect
+
 from example_app.views_check_profone import ViewCheckProfane
 from example_app.views_ifelse_basic import ViewsIfElseBasic
+from example_app.views_check_lang import ViewCheckLang
 
 
 
@@ -38,48 +39,18 @@ class ChatterBotApiView(View):
         
         answerStr = ViewsIfElseBasic.answerBasicQuestions(request)
         answerStr = ViewCheckProfane.checkProfane(request)
-        
+        answerStr = ViewCheckLang.checkLang(request)
         print ("answerBasicQuestions ==>", answerStr)
         if answerStr != None:
             return answerStr   
-        
-        # << --- START - move this to views_check_profone.py  --->>
-        pf = ProfanityFilter()
-        isProfane = pf.is_profane(text)                                  
-        if (isProfane):
-            filtered = pf.censor(text)
-            return JsonResponse({
-                'text': [
-                    'Profane Word detected and filtered. Do you really want to teach the bot this word? Filtered word =' + filtered
-                ]
-            }, status=200)
-        # << --- END - move this to views_check_profone.py  --->>
-        
-        # << --- START - move this to views_check_lang.py  --->>
-        langDetected = detect(text)
 
-        supportedLang = ['nl', 'sl', 'en']
-
-        isSupported = any(langDetected in s for s in supportedLang)
         
-        print("lang detected and supported? ==" , langDetected , isSupported)
-        
-        if (isSupported == False):
-            filtered = pf.censor(text)
-            return JsonResponse({
-                'text': [
-                    'Bot only able to understand simple English, could you re-type, if possible full sentence? =' + text
-                ]
-            }, status=200)
-            
         if 'text' not in input_data:
             return JsonResponse({
                 'text': [
                     'The attribute "text" is required.'
                 ]
             }, status=400)
-
-        # << --- END - move this to views_check_lang.py  --->>
         
         response = self.chatterbot.get_response(input_data)
        
